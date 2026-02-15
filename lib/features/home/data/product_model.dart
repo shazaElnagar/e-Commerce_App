@@ -1,28 +1,25 @@
-class ProductModel{
+class ProductModel {
   final int id;
   final String title;
-  final double price;
   final String description;
-  final String category;
+  final double price;
   final String image;
 
   ProductModel({
     required this.id,
     required this.title,
-    required this.price,
     required this.description,
-    required this.category,
+    required this.price,
     required this.image,
-});
+  });
+
   factory ProductModel.fromJson(Map<String, dynamic> json) {
     return ProductModel(
-      id: json['id'],
-      title: json['title'],
-      price: (json['price'] as num).toDouble(),
-      description: json['description'],
-      category: json['category'],
-      image: json['image'],
+      id: json['id'] ?? 0,
+      title: json['title'] ?? "",
+      description: json['description'] ?? "",
+      price: (json['price'] ?? 0).toDouble(),
+      image: json['thumbnail'] ?? "", // 👈 أهم سطر
     );
   }
-
 }

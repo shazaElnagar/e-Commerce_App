@@ -4,17 +4,23 @@ import 'package:untitled1/features/home/data/home_service.dart';
 import 'package:untitled1/features/home/data/product_model.dart';
 
 class HomeCubit extends Cubit<HomeState> {
-  HomeCubit() : super(HomeInitial());
-  HomeService service = HomeService();
+  HomeCubit() : super(HomeInitial()) {
+    print("CUBIT CREATED");
+  }
+
+  final HomeService service = HomeService();
 
   Future<void> getAllProducts() async {
+    print("GET PRODUCTS CALLED");
+
     emit(HomeLoading());
+
     try {
-      List<ProductModel> products = await service.getProducts();
+      final products = await service.getProducts();
       emit(HomeSuccess(products));
-    }
-    catch (e) {
-      emit(HomeError("Failed to load products"));
+    } catch (e) {
+      print("CUBIT ERROR: $e");
+      emit(HomeError("Failed"));
     }
   }
 }
